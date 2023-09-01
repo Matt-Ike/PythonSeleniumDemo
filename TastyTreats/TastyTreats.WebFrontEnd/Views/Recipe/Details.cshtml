@@ -1,0 +1,82 @@
+﻿@model TastyTreats.WebFrontEnd.Models.RecipeDetailsVM
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<h2>
+    @Html.DisplayFor(model => model.Title)
+</h2>
+
+<div>
+    <hr />
+    <dl>
+        <dt>
+            @Html.DisplayNameFor(model => model.Chef)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Chef)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Yield)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Yield)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Archived)
+        </dt>
+        <dd>
+            @(Model.Archived == true ? "Yes" : "No")
+        </dd>
+    </dl>
+</div>
+
+<h2>Reviews</h2>
+
+@if (Model.Reviews.Count() == 0)
+{
+    <p>This recipe does not have any reviews yet.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Reviews.ElementAt(0).ReviewDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Reviews.ElementAt(0).Stars)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Reviews.ElementAt(0).Comment)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model.Reviews.Count(); i++)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => model.Reviews.ElementAt(i).ReviewDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Reviews.ElementAt(i).Stars)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => model.Reviews.ElementAt(i).Comment)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<div>
+    @Html.ActionLink("Add a new review", "Create", "Reviews", new { recipeId = Model.RecipeId }, new { @class = "btn btn-success"})
+    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+</div>

@@ -1,0 +1,68 @@
+﻿@model IEnumerable<TastyTreats.Model.DTO.RecipeDTO>
+
+@{
+    ViewData["Title"] = "Recipe List";
+}
+
+<h1>List of Recipes</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-success">Create Recipe</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ChefFullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Yield)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateAdded)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Archived)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                ACTIONS
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChefFullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Yield)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateAdded)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Archived)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id=item.RecipeId }, new { @class = "btn btn-primary"})
+                @Html.ActionLink("Edit", "Edit", new { id=item.RecipeId }, new { @class = "btn btn-warning"})
+                @Html.ActionLink("Delete", "Delete", new { id=item.RecipeId}, new { @class = "btn btn-danger"})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

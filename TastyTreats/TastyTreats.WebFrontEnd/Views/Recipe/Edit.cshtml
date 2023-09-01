@@ -1,0 +1,72 @@
+﻿@model TastyTreats.WebFrontEnd.Models.RecipeEditVM
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Modify Recipe - @Model.Recipe.Title</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+
+            @if (Model.Recipe.Errors.Count > 0)
+            {
+            <div class="text-danger">
+                <ul>
+                        @foreach (var e in Model.Recipe.Errors.Where(err => err.ErrorType == TastyTreats.Types.ErrorType.Business))
+                        {
+                            <li>@e.Description</li>
+                        }
+                </ul>
+            </div>
+            }
+            <input asp-for="Recipe.RecipeId" type="hidden" />
+            <div class="form-group">
+                <label asp-for="Recipe.Title" class="control-label"></label>
+                <input asp-for="Recipe.Title" class="form-control" />
+                <span asp-validation-for="Recipe.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Recipe.ChefId" class="control-label"></label>
+                <select asp-for="Recipe.ChefId" asp-items="Model.Chefs" class="form-select">
+                    <option disabled selected>---SELECT---</option>
+                </select>
+                <span asp-validation-for="Recipe.ChefId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Recipe.Yield" class="control-label"></label>
+                <input asp-for="Recipe.Yield" class="form-control" />
+                <span asp-validation-for="Recipe.Yield" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Recipe.DateAdded" class="control-label"></label>
+                <input asp-for="Recipe.DateAdded" class="form-control" />
+                <span asp-validation-for="Recipe.DateAdded" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Recipe.Archived" /> @Html.DisplayNameFor(model => model.Recipe.Archived)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Recipe.RecipeTypeId" class="control-label"></label>
+                <select asp-for="Recipe.RecipeTypeId" asp-items="Model.RecipeTypes" class="form-select">
+                    <option disabled selected>---SELECT---</option>
+                </select>
+                <span asp-validation-for="Recipe.RecipeTypeId" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-primary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
